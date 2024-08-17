@@ -16,7 +16,7 @@ const _INCODE = true; //Ngăn chặn hành vi truy cập trực tiếp vào file
 
 define('_WEB_HOST_ROOT', 'http://'.$_SERVER['HTTP_HOST'].'/Gym_Manager/'); //Địa chỉ trang chủ
 
-define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'/templates');
+define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'templates');
 
 //Thiết lập path
 define('_WEB_PATH_ROOT', __DIR__);
@@ -27,7 +27,7 @@ define('_WEB_PATH_TEMPLATE', _WEB_PATH_ROOT.'/templates');
 const _HOST = 'localhost';
 const _USER = 'root';
 const _PASS = ''; //Xampp => pass='';
-const _DB = 'gymnsb';
+const _DB = 'gym';
 const _DRIVER = 'mysql';
 
 //Thiết lập debug

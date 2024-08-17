@@ -83,7 +83,6 @@ function firstRaw($sql){
         $dataFetch = $statement->fetch(PDO::FETCH_ASSOC);
         return $dataFetch;
     }
-
     return false;
 }
 

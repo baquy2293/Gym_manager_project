@@ -24,13 +24,13 @@ function sendMail($to, $subject, $content)
         $mail->isSMTP();                                            //Send using SMTP
         $mail->Host = 'smtp.gmail.com';                     //Set the SMTP server to send through
         $mail->SMTPAuth = true;                                   //Enable SMTP authentication
-        $mail->Username = 'hoangan.web@gmail.com';                     //SMTP username
-        $mail->Password = 'vijcervsnjmorpne';                               //SMTP password
+        $mail->Username = 'op3477662@gmail.com';                     //SMTP username
+        $mail->Password = 'nlbvppdrjiszxskx';                               //SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
         $mail->Port = 465;                                    //TCP
 
         //Recipients
-        $mail->setFrom('hoangan.web@gmail.com', 'Unicode Training');
+        $mail->setFrom('op3477662@gmail.com', 'Unicode Training');
         $mail->addAddress($to);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
