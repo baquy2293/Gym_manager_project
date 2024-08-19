@@ -6,26 +6,21 @@ if (isPost()) {
         $queryUser = firstRaw("SELECT id FROM user_admin WHERE email='$email'");
         if (!empty($queryUser)) {
             $userId = $queryUser['id'];
-
             //Tạo forgotToken
             $forgotToken = sha1(uniqid() . time());
             $dataUpdate = [
                 'forgotToken' => $forgotToken
             ];
-
             $updateStatus = update('user_admin', $dataUpdate, "id=$userId");
             if ($updateStatus) {
-
                 //Tạo link khôi phục
-                $linkReset = _WEB_HOST_ROOT . '?module=auth&action=auth/reset&token=' . $forgotToken;
-
+                $linkReset = _WEB_HOST_ROOT . '?module=admin&action=auth/reset&token=' . $forgotToken;
                 //Thiết lập gửi email
                 $subject = 'Yêu cầu khôi phục mật khẩu';
                 $content = 'Chào bạn: ' . $email . '<br/>';
                 $content .= 'Chúng tôi nhận được yêu cầu khôi phục mật khẩu từ bạn. Vui lòng click vào link sau để khôi phục: <br/>';
                 $content .= $linkReset . '<br/>';
                 $content .= 'Trân trọng!';
-
                 //Tiến hành gửi email
                 $sendStatus = sendMail($email, $subject, $content);
                 if ($sendStatus) {
@@ -39,18 +34,14 @@ if (isPost()) {
                 setFlashData('msg', 'Lỗi hệ thống! Bạn không thể sử dụng chức năng này');
                 setFlashData('msg_type', 'danger');
             }
-
         } else {
             setFlashData('msg', 'Địa chỉ email không tồn tại trong hệ thống');
             setFlashData('msg_type', 'danger');
         }
     } else {
-
     }
-
     redirect('?module=admin&action=auth/forgot');
 }
-
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
 ?>

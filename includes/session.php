@@ -50,8 +50,6 @@ function setFlashData($key, $value){
 function getFlashData($key){
     $key = 'flash_'.$key;
     $data = getSession($key);
-
     removeSession($key);
-
     return $data;
 }

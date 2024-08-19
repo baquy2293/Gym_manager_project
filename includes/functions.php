@@ -30,7 +30,7 @@ function sendMail($to, $subject, $content)
         $mail->Port = 465;                                    //TCP
 
         //Recipients
-        $mail->setFrom('op3477662@gmail.com', 'Unicode Training');
+        $mail->setFrom('op3477662@gmail.com', 'KMA WEB AN TOAN');
         $mail->addAddress($to);     //Add a recipient
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML

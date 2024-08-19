@@ -34,7 +34,7 @@ if (!empty($token)){
             setFlashData('msg_type', 'danger');
         }
 
-        redirect('?module=auth&action=login');
+        redirect('?module=auth&action=auth/login');
 
     }else{
         getMsg('Liên kết không tồn tại hoặc đã hết hạn', 'danger');
