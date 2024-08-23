@@ -1,11 +1,12 @@
 <?php
+//if (!defined('_INCODE')) die('Access Deined...');
 //File này chứa các hằng số cấu hình
 
 date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 //Thiết lập hằng số cho client
-const _MODULE_DEFAULT = 'home'; //Module mặc định
-const _ACTION_DEFAULT = 'lists'; //Action mặc định
+const _MODULE_DEFAULT = 'auth'; //Module mặc định
+const _ACTION_DEFAULT = 'login'; //Action mặc định
 //
 //Thiết lập hằng số cho admin
 const _MODULE_DEFAULT_ADMIN = 'dashboard';
@@ -14,7 +15,7 @@ const _INCODE = true; //Ngăn chặn hành vi truy cập trực tiếp vào file
 
 //Thiết lập host
 
-define('_WEB_HOST_ROOT', 'http://'.$_SERVER['HTTP_HOST'].'/Gym_Manager/'); //Địa chỉ trang chủ
+define('_WEB_HOST_ROOT', 'http://'.$_SERVER['HTTP_HOST'].'/Gym_manager_project/'); //Địa chỉ trang chủ
 
 define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'templates');
 

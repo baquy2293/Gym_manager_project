@@ -1,8 +1,7 @@
+
 .error{
-    margin: 0 auto;
-    width: 60%;
-    background-color: #f2dede;
-    text-align: center;
     color: red;
+    font-size: 90%;
+    font-style: italic;
     display: block;
 }
