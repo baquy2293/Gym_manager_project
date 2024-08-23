@@ -5,11 +5,14 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-function layout($layoutName = 'header', $data = [])
-{
+function layout($layoutName='header', $dir=''){
 
-    if (file_exists(_WEB_PATH_TEMPLATE . '/layouts/' . $layoutName . '.php')) {
-        require_once _WEB_PATH_TEMPLATE . '/layouts/' . $layoutName . '.php';
+    if (!empty($dir)){
+        $dir = '/'.$dir;
+    }
+
+    if (file_exists(_WEB_PATH_TEMPLATE.$dir.'/layouts/'.$layoutName.'.php')){
+        require_once _WEB_PATH_TEMPLATE.$dir.'/layouts/'.$layoutName.'.php';
     }
 }
 
@@ -236,7 +239,7 @@ function isLogin()
 //Tự động xoá token login đếu đăng xuất
 function autoRemoveTokenLogin()
 {
-    $allUsers = getRaw("SELECT * FROM users WHERE status=1");
+    $allUsers = getRaw("SELECT * FROM users WHERE activeToken='NULL'");
 
     if (!empty($allUsers)) {
         foreach ($allUsers as $user) {

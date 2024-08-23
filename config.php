@@ -23,6 +23,12 @@ define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'templates');
 define('_WEB_PATH_ROOT', __DIR__);
 define('_WEB_PATH_TEMPLATE', _WEB_PATH_ROOT.'/templates');
 
+//define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'/templates/client');
+//
+define('_WEB_HOST_ROOT_ADMIN', _WEB_HOST_ROOT.'/admin');
+
+define('_WEB_HOST_ADMIN_TEMPLATE', _WEB_HOST_ROOT.'templates/admin');
+
 //Thiết lập kết nối database
 
 const _HOST = 'localhost';

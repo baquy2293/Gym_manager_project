@@ -24,12 +24,12 @@ if (isPost()) {
         if (!isEmail(trim($body['email']))) {
             $errors['email']['isEmail'] = 'Email không hợp lệ';
         } else {
-            //Kiểm tra email có tồn tại trong DB
-//            $email = trim($body['email']);
-//            $sql = "SELECT id FROM users WHERE email='$email'";
-//            if (getRows($sql) > 0) {
-//                $errors['email']['unique'] = 'Địa chỉ email đã tồn tại';
-//            }
+//            Kiểm tra email có tồn tại trong DB
+            $email = trim($body['email']);
+            $sql = "SELECT id FROM users WHERE email='$email'";
+            if (getRows($sql) > 0) {
+                $errors['email']['unique'] = 'Địa chỉ email đã tồn tại';
+            }
         }
     }
 
@@ -197,7 +197,7 @@ $old = getFlashData('old');
                     value="Admin Login">Đăng kí
             </button>
             <br>
-            <a href="?module=customer/auth&action=login"><p
+            <a href="?module=auth/&action=login"><p
                         class="btn btn-success btn-large btn-block"> Đăng nhập </p>
             </a>
 

@@ -29,9 +29,9 @@ if (isPost()) {
                     //Chuyển hướng qua trang quản lý users
 
                     if ($userQuery['admin'] == "1") {
-                        redirect('?module=admin&action=test');
+                        redirect('?module=admin&action=lists');
                     } else
-                        redirect('?module=customer&action=test');
+                        redirect('?module=customer&action=lists');
 
                 } else {
                     setFlashData('msg', 'Lỗi hệ thống, bạn không thể đăng nhập vào lúc này');
