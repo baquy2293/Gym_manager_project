@@ -21,7 +21,6 @@ function getSession($key=''){
             return $_SESSION[$key];
         }
     }
-
     return false;
 }
 

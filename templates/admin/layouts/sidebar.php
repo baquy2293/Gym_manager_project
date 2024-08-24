@@ -83,7 +83,7 @@ $userDetail = getUserInfo($userId);
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=list_pt" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách PT</p>
                             </a>
@@ -127,6 +127,14 @@ $userDetail = getUserInfo($userId);
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <p>
                             Thanh toán
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="?module=auth&action=logout" class="nav-link">
+                        <i class="fa fa-power-off" aria-hidden="true"></i>
+                        <p>
+                            Đăng xuất
                         </p>
                     </a>
                 </li>
