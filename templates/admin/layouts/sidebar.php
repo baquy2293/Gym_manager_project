@@ -47,27 +47,15 @@ $userDetail = getUserInfo($userId);
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=list_user" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Tất cả người dùng</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=add_user" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm thành viên</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Xóa thành viên</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Cập nhật thông tin </p>
                             </a>
                         </li>
                     </ul>
@@ -75,7 +63,7 @@ $userDetail = getUserInfo($userId);
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="fa fa-user-md" aria-hidden="true"></i>
                         <p>
                             Huấn luyện viên
                             <i class="fas fa-angle-left right"></i>
@@ -89,7 +77,7 @@ $userDetail = getUserInfo($userId);
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=add_pt" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm PT</p>
                             </a>
@@ -99,7 +87,7 @@ $userDetail = getUserInfo($userId);
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="fa fa-book" aria-hidden="true"></i>
                         <p>
                             Khoá học
                             <i class="fas fa-angle-left right"></i>
@@ -107,13 +95,13 @@ $userDetail = getUserInfo($userId);
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=list_cource" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Danh sách khóa học</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="?module=admin&action=add_cource" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Thêm khóa học</p>
                             </a>

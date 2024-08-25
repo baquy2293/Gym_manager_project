@@ -2,7 +2,7 @@
 if (!defined('_INCODE')) die('Access Deined...');
 $id = getBody()['id'];
 echo $id;
-if (isLogin()) {
+if (isLogin()&&getSession('admin')==1) {
     if (!empty($id)) {
         $deletePt = delete("pt", "id=$id");
         if ($deletePt) {

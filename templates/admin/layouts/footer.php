@@ -1,6 +1,6 @@
 </div>
 <footer class="main-footer">
-    <strong>Copyright &copy; <?php echo date('Y'); ?>. Xây dựng bởi <a target="_parent" href="https://baquy.id.vn">Trịnh Bá Quý AT180340</a></strong>.
+    <strong>Copyright &copy; <?php echo date('Y'); ?>. Xây dựng bởi <a target="_blank" href="https://www.facebook.com/tbq.2293?locale=vi_VN">Trịnh Bá Quý AT180340</a></strong>.
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0

@@ -1,10 +1,9 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
 layout('header', "admin");
-
 if (isPost()) {
     $body = getBody();
-    $error = [];
+    $errors = [];
     if (empty(trim($body['fullname']))) {
         $errors['fullname']['required'] = 'Họ tên bắt buộc phải nhập';
     } elseif (strlen(trim($body['fullname'])) < 5) {
@@ -32,12 +31,9 @@ if (isPost()) {
             }
         }
     }
-
     if (empty(trim($body['address']))) {
         $errors['address']['required'] = 'Địa chỉ không được để trống';
     }
-
-
     if (empty($errors)) {
         if ($body['gender'] == 1) {
             $body['gender'] = "Nữ";
@@ -53,9 +49,7 @@ if (isPost()) {
             'address' => $body['address'],
             'gender' => $body['gender'],
             'createAt' => date('Y-m-d H:i:s'),
-
         ];
-
         $insertStatus = insert('pt', $dataInsert);
         if ($insertStatus) {
             setFlashData('msg', 'Thêm tài khoản thành công');
@@ -76,9 +70,7 @@ $msg = getFlashData("msg");
 $msgType = getFlashData('msg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
-
 ?>
-
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
@@ -88,7 +80,6 @@ $old = getFlashData('old');
                         <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Thêm huấn luyện viên</h3>
                         <?php getMsg($msg, $msgType); ?>
                         <form method="post">
-
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline">
@@ -97,26 +88,20 @@ $old = getFlashData('old');
                                                value="<?php echo old('fullname', $old); ?>"/>
                                         <label class="form-label" for="fullname">Họ và tên</label>
                                         <?php echo form_error('fullname', $errors, '<span class="error btn-warning">', '</span>'); ?>
-
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
-
                                     <div data-mdb-input-init class="form-outline">
                                         <input type="text" placeholder="Địa chỉ ..." name="address"
                                                class="form-control form-control-lg"
                                                value="<?php echo old('address', $old); ?>"/>
                                         <label class="form-label" for="address">Địa chỉ</label>
                                         <?php echo form_error('address', $errors, '<span class="error btn-warning">', '</span>'); ?>
-
                                     </div>
-
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6 mb-4 d-flex align-items-center">
-
                                     <div data-mdb-input-init class="form-outline datepicker w-100">
                                         <input type="text" placeholder="Số điện thoại ..."
                                                class="form-control form-control-lg" name="phone"
@@ -125,33 +110,27 @@ $old = getFlashData('old');
                                         <?php echo form_error('phone', $errors, '<span class="error btn-warning">', '</span>'); ?>
 
                                     </div>
-
                                 </div>
                                 <div class="col-md-6 mb-4">
-
                                     <h6 class="mb-2 pb-1">Giới tính: </h6>
-
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"
                                                name="femaleGender"
                                                value="1" checked/>
                                         <label class="form-check-label" for="femaleGender">Nữ</label>
                                     </div>
-
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"
                                                id="maleGender"
                                                value="2"/>
                                         <label class="form-check-label" for="maleGender">Nam</label>
                                     </div>
-
                                     <div class="form-check form-check-inline">
                                         <input class="form-check-input" type="radio" name="gender"
                                                id="otherGender"
                                                value="0"/>
                                         <label class="form-check-label" for="otherGender">Khác</label>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
@@ -164,20 +143,16 @@ $old = getFlashData('old');
                                         <label class="form-label" for="email">Email</label>
                                         <?php echo form_error('email', $errors, '<span class="error btn-warning">', '</span>'); ?>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row">
-
-
-                                    <div class="col-md-6 mb-7 pb-2 btn-large">
-                                        <button type="submit" class="btn btn-success btn-large "> Thêm</button>
-                                    </div>
-                                    <div class="col-md-6 mb-7 pb-2 btn-large">
-                                        <a href="?module=admin&action=list_pt" class="btn btn-danger btn-large">
-                                            Hủy </a>
-                                    </div>
-
+                                <div class="col-md-6 mb-7 pb-2 btn-large">
+                                    <button type="submit" class="btn btn-success btn-large "> Thêm</button>
+                                </div>
+                                <div class="col-md-6 mb-7 pb-2 btn-large">
+                                    <a href="?module=admin&action=list_pt" class="btn btn-danger btn-large">
+                                        Hủy </a>
+                                </div>
                             </div>
                         </form>
                     </div>

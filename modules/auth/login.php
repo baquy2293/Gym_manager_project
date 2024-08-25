@@ -26,6 +26,7 @@ if (isPost()) {
                     //Insert token thành công
                     //Lưu loginToken vào session
                     setSession('loginToken', $tokenLogin);
+                    setSession('admin', 1);
                     //Chuyển hướng qua trang quản lý users
 
                     if ($userQuery['admin'] == "1") {
