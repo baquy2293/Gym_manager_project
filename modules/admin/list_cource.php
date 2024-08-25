@@ -49,10 +49,10 @@ $msgType = getFlashData('msg_type');
                         <div class='text-center'><?php echo $item['name']; ?></div>
                     </td>
                     <td>
-                        <div class='text-center'><?php echo $item['price']; ?></div>
+                        <div class='text-center'><?php echo $item['price']." VND"; ?></div>
                     </td>
                     <td>
-                        <div class='text-center'><?php echo $item['time']; ?></div>
+                        <div class='text-center'><?php echo $item['time']. " tháng"; ?></div>
                     </td>
                     <td>
                         <div class='text-center'><?php echo $item['description']; ?></div>
