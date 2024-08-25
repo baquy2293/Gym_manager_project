@@ -1,9 +1,29 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
 layout('header', "admin");
+$body = getBody();
+
+if (!empty($body['id'])) {
+    $userId = $body['id'];
+    //Kiểm tra userId có tồn tại trong Database hay không?
+    //Nếu tồn tại => Lấy ra thông tin
+    //Nếu không tồn tại => Chuyển hướng về trang lists
+    $userDetail = firstRaw("SELECT * FROM users WHERE id=$userId");
+    if (!empty($userDetail)) {
+        //Tồn tại
+        //Gán giá trị $userDetail vào flashData
+        setFlashData('userDetail', $userDetail);
+    } else {
+        redirect('?module=admin&action=list_user');
+    }
+} else {
+    redirect('?module=admin&action=list_user');
+}
+
 if (isPost()) {
     $body = getBody();
-    $errors = [];
+    $error = [];
+
     if (empty(trim($body['fullname']))) {
         $errors['fullname']['required'] = 'Họ tên bắt buộc phải nhập';
     } elseif (strlen(trim($body['fullname'])) < 5) {
@@ -25,15 +45,18 @@ if (isPost()) {
         } else {
 //            Kiểm tra email có tồn tại trong DB
             $email = trim($body['email']);
-            $sql = "SELECT id FROM pt WHERE email='$email'";
+            $sql = "SELECT id FROM users WHERE email='$email'AND id<>$userId ";
             if (getRows($sql) > 0) {
                 $errors['email']['unique'] = 'Địa chỉ email đã tồn tại';
             }
         }
     }
+
     if (empty(trim($body['address']))) {
         $errors['address']['required'] = 'Địa chỉ không được để trống';
     }
+
+
     if (empty($errors)) {
         if ($body['gender'] == 1) {
             $body['gender'] = "Nữ";
@@ -48,17 +71,18 @@ if (isPost()) {
             'phone' => $body['phone'],
             'address' => $body['address'],
             'gender' => $body['gender'],
-            'createAt' => date('Y-m-d H:i:s'),
+            'updateAt' => date('Y-m-d H:i:s'),
         ];
-        $insertStatus = insert('pt', $dataInsert);
+        $userId = $body['id'];
+        $insertStatus = update('users', $dataInsert, "id=$userId");
         if ($insertStatus) {
-            setFlashData('msg', 'Thêm tài khoản thành công');
+            setFlashData('msg', 'Sửa tài khoản thành công');
             setFlashData('msg_type', 'success');
         } else {
             setFlashData('msg', 'Hệ thống đang gặp sự cố! Vui lòng thử lại sau.');
             setFlashData('msg_type', 'danger');
         }
-        redirect('?module=admin&action=list_pt');
+        redirect('?module=admin&action=list_user');
     } else {
         setFlashData('msg', 'Vui lòng kiểm tra dữ liệu nhập vào');
         setFlashData('msg_type', 'danger');
@@ -66,20 +90,28 @@ if (isPost()) {
         setFlashData('old', $body);
     }
 }
+
 $msg = getFlashData("msg");
 $msgType = getFlashData('msg_type');
 $errors = getFlashData('errors');
 $old = getFlashData('old');
+$userDetail = getFlashData('userDetail');
+if (!empty($userDetail)) {
+    $old = $userDetail;
+}
+
 ?>
+
 <section class="vh-100 gradient-custom">
     <div class="container py-5 h-100">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-12 col-lg-9 col-xl-7">
                 <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
                     <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Thêm huấn luyện viên</h3>
+                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Sửa tài khoản người dùng</h3>
                         <?php getMsg($msg, $msgType); ?>
                         <form method="post">
+
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <div data-mdb-input-init class="form-outline">
@@ -88,9 +120,11 @@ $old = getFlashData('old');
                                                value="<?php echo old('fullname', $old); ?>"/>
                                         <label class="form-label" for="fullname">Họ và tên</label>
                                         <?php echo form_error('fullname', $errors, '<span class="error btn-warning">', '</span>'); ?>
+
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-4">
+
                                     <div data-mdb-input-init class="form-outline">
                                         <input type="text" placeholder="Địa chỉ ..." name="address"
                                                class="form-control form-control-lg"
@@ -100,6 +134,7 @@ $old = getFlashData('old');
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-6 mb-4 d-flex align-items-center">
                                     <div data-mdb-input-init class="form-outline datepicker w-100">
@@ -110,7 +145,41 @@ $old = getFlashData('old');
                                         <?php echo form_error('phone', $errors, '<span class="error btn-warning">', '</span>'); ?>
 
                                     </div>
+
                                 </div>
+                                <div class="col-md-6 mb-4">
+
+                                    <h6 class="mb-2 pb-1">Giới tính: </h6>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                               name="femaleGender"
+                                               value="1"
+                                            <?php echo old('gender', $old) == "Nữ" ? 'checked' : null; ?> />
+                                        <label class="form-check-label" for="femaleGender">Nữ</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                               id="maleGender"
+                                               value="2"
+                                            <?php echo (old('gender', $old) == "Nam") ? 'checked' : null; ?> />
+
+                                        <label class="form-check-label" for="maleGender">Nam</label>
+                                    </div>
+
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="gender"
+                                               id="otherGender"
+                                               value="0"
+                                            <?php echo (old('gender', $old) == "Khác") ? 'checked' : null; ?> />
+
+                                        <label class="form-check-label" for="otherGender">Khác</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-6 mb-4 pb-2">
 
                                     <div data-mdb-input-init class="form-outline">
@@ -120,39 +189,21 @@ $old = getFlashData('old');
                                         <label class="form-label" for="email">Email</label>
                                         <?php echo form_error('email', $errors, '<span class="error btn-warning">', '</span>'); ?>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <h6 class="mb-2 pb-1">Giới tính: </h6>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender"
-                                               name="femaleGender"
-                                               value="1" checked/>
-                                        <label class="form-check-label" for="femaleGender">Nữ</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender"
-                                               id="maleGender"
-                                               value="2"/>
-                                        <label class="form-check-label" for="maleGender">Nam</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="gender"
-                                               id="otherGender"
-                                               value="0"/>
-                                        <label class="form-check-label" for="otherGender">Khác</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
+
+
                                 <div class="col-md-6 mb-7 pb-2 btn-large">
-                                    <button type="submit" class="btn btn-success btn-large "> Thêm</button>
+                                    <button type="submit" class="btn btn-success btn-large "> Sửa</button>
                                 </div>
                                 <div class="col-md-6 mb-7 pb-2 btn-large">
-                                    <a href="?module=admin&action=list_pt" class="btn btn-danger btn-large">
+                                    <a href="?module=admin&action=list_user" class="btn btn-danger btn-large">
                                         Hủy </a>
                                 </div>
+                                <input name="id" type="hidden" value="<?php echo $userId ?>">
+
                             </div>
                         </form>
                     </div>
