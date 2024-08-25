@@ -91,7 +91,7 @@ $old = getFlashData('old');
                                 <div data-mdb-input-init class="form-outline">
                                     <textarea placeholder="Mô tả ..." name="description"
                                               class="form-control form-control-lg"
-                                              value="<?php echo old('description', $old); ?>"></textarea>
+                                    ><?php echo old('description', $old); ?></textarea>
 
                                     <?php echo form_error('description', $errors, '<span class="error btn-warning">', '</span>'); ?>
                                 </div>
