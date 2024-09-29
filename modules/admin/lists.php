@@ -91,14 +91,29 @@ layout('sidebar', 'admin');
         ON cource.id = bycource.cource_id 
         GROUP BY MONTH(bycource.createAt)';
         $data = getRaw($sql);
+        $sqllesson = "SELECT COUNT(name) as sl, cource.name 
+         FROM bycource 
+         JOIN cource ON bycource.cource_id = cource.id 
+         GROUP BY cource.name";
+;
+        $datalesson = getRaw($sqllesson);
+        
 
         $month = [];
         $price = [];
+        $name_cource = [];
+        $quantity =[];
 
         foreach ($data as $row) {
             $month[] = $row['month'];
             $price[] = $row['price_count'];
         }
+
+        foreach ($datalesson as $row) {
+            $name_cource[] = $row['name'];
+            $quantity[] = $row['sl'];
+        }
+
         ?>
 
         <script>
@@ -108,10 +123,10 @@ layout('sidebar', 'admin');
             new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: <?php echo json_encode(array_map(function($m) { return 'Tháng ' . $m; }, $month)); ?>,
+                    labels: <?php echo json_encode(array_map(function($m) { return '' . $m; }, $name_cource)); ?>,
                     datasets: [{
                         label: 'Tổng giá trị',
-                        data: <?php echo json_encode($price); ?>,
+                        data: <?php echo json_encode($quantity); ?>,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',

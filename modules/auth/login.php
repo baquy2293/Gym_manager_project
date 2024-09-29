@@ -28,6 +28,7 @@ if (isPost()) {
                     setSession('loginToken', $tokenLogin);
                     setSession('admin', 1);
                     setSession('fullname', $userQuery['fullname']);
+                    setSession('id_user',$userId);
                     //Chuyển hướng qua trang quản lý users
 
                     if ($userQuery['admin'] == "1") {

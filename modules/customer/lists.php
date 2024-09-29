@@ -15,16 +15,22 @@ layout('header', 'client', $data);
 <main>
     <!-- end product-hot -->
     <div class="product_lemonTea">
+
         <div class="title-product_hot">
             <h1 id="title_deal">Danh sách khóa tập</h1>
         </div>
         <!-- end title-product_hot -->
         <div class="box-product_Hot">
             <?php
-
-            $result = getRaw("SELECT * FROM cource");
+            if (isPost()){
+                // $result = getRaw("SELECT * FROM cource");
+                $like = '%'.$_POST['search'].'%';
+                $sql = "SELECT * FROM cource where name like '$like'";
+                $result = getRaw($sql);
+            }else{
+                $result = getRaw("SELECT * FROM cource");
+            }
             foreach ($result as $key => $value) {
-
                 echo '
                     <div class="item-product-hot">
                       <div class="item-product-hot-img">

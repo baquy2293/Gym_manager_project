@@ -23,7 +23,8 @@
         --textPrice-color: #d21e1eff;
     }
     </style>
-    <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE ; ?>/assets/css/style_<?php echo $data['style'] ?>.css?ver=<?php echo rand(); ?>" />
+    <link rel="stylesheet"
+        href="<?php echo _WEB_HOST_CLIENT_TEMPLATE ; ?>/assets/css/style_<?php echo $data['style'] ?>.css?ver=<?php echo rand(); ?>" />
     <link rel="stylesheet" href="<?php echo _WEB_HOST_CLIENT_TEMPLATE ?>/assets/css/style_home_animate.css" />
 </head>
 
@@ -52,8 +53,15 @@
                         <!-- end logo -->
                     </ul>
                 </nav>
-               <h1><?php echo getSession('fullname') ?></h1>
+                <h1><?php echo getSession('fullname') ?></h1>
                 <!-- <img class="img-fluid" src="../images/' . $row['logo'] . '" alt="Theme-Logo" /> -->
             </div>
             <!-- end header_bottom -->
         </header>
+        <nav class="navbar navbar-light bg-light justify-content-between">
+           <a></a>
+            <form class="form-inline d-flex"  method="POST" >
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>

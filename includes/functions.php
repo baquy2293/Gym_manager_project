@@ -271,3 +271,15 @@ function getUserInfo($userId)
     $info = firstRaw("SELECT * FROM users WHERE id=$userId");
     return $info;
 }
+
+function getTimeEnd($time,$day){
+
+$now = new DateTime($time);
+
+// Thêm $day ngày vào thời gian hiện tại
+$now->modify("+$day days");
+
+// Hiển thị kết quả
+return $now->format('Y-m-d H:i:s');
+
+}
