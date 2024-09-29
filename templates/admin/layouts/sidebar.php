@@ -106,12 +106,16 @@ $userDetail = getUserInfo($userId);
                                 <p>Thêm khóa học</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="?module=admin&action=register_cource" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Danh sách đăng kí khóa học</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
-
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="?module=admin&action=price" class="nav-link">
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <p>
                             Thanh toán

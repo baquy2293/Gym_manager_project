@@ -15,7 +15,7 @@ const _INCODE = true; //Ngăn chặn hành vi truy cập trực tiếp vào file
 
 //Thiết lập host
 
-define('_WEB_HOST_ROOT', 'http://'.$_SERVER['HTTP_HOST'].'/Gym_manager_project/'); //Địa chỉ trang chủ
+define('_WEB_HOST_ROOT', 'http://'.$_SERVER['HTTP_HOST'].'/btl/Gym_manager_project/'); //Địa chỉ trang chủ
 
 define('_WEB_HOST_TEMPLATE', _WEB_HOST_ROOT.'templates');
 
@@ -28,6 +28,10 @@ define('_WEB_PATH_TEMPLATE', _WEB_PATH_ROOT.'/templates');
 define('_WEB_HOST_ROOT_ADMIN', _WEB_HOST_ROOT.'/admin');
 
 define('_WEB_HOST_ADMIN_TEMPLATE', _WEB_HOST_ROOT.'templates/admin');
+
+define('_WEB_HOST_ROOT_CLIENT', _WEB_HOST_ROOT.'/client');
+
+define('_WEB_HOST_CLIENT_TEMPLATE', _WEB_HOST_ROOT.'templates/client');
 
 //Thiết lập kết nối database
 

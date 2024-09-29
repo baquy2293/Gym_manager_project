@@ -48,6 +48,7 @@ if (isPost()) {
             'phone' => $body['phone'],
             'address' => $body['address'],
             'gender' => $body['gender'],
+            'admin'=> '0',
             'password' => password_hash("123456789", PASSWORD_DEFAULT),
             'createAt' => date('Y-m-d H:i:s'),
         ];
@@ -55,7 +56,7 @@ if (isPost()) {
         if ($insertStatus) {
             setFlashData('msg', 'Thêm tài khoản thành công');
             setFlashData('msg_type', 'success');
-            sendMail($body['email'], "Kích hoạt tài khoản", "Bạn đã được kích hoạt tài khoản thành công từ người quản trị với tài khoản ".$body['email']." và mật khẩu mặc định là 123456");
+            sendMail($body['email'], "Kích hoạt tài khoản", "Bạn đã được kích hoạt tài khoản thành công từ người quản trị với tài khoản " . $body['email'] . " và mật khẩu mặc định là 123456789");
         } else {
             setFlashData('msg', 'Hệ thống đang gặp sự cố! Vui lòng thử lại sau.');
             setFlashData('msg_type', 'danger');
@@ -112,7 +113,6 @@ $old = getFlashData('old');
                                         <?php echo form_error('email', $errors, '<span class="error btn-warning">', '</span>'); ?>
                                     </div>
                                 </div>
-
                                 <div class="col-md-6 mb-4 ">
                                     <div data-mdb-input-init class="form-outline datepicker w-100">
                                         <input type="text" placeholder="Số điện thoại ..."

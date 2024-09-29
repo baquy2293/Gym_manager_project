@@ -1,9 +1,9 @@
 <?php
-
+ob_start();
 layout('header', 'admin');
 layout('sidebar', 'admin');
 
-$allUserNum = getRows("SELECT id FROM pt");
+$allUserNum = getRows("SELECT id FROM bycource");
 
 //1. Xác định được số lượng bản ghi trên 1 trang
 $perPage = _PER_PAGE; //Mỗi trang có 3 bản ghi
@@ -31,8 +31,7 @@ if (!empty(getBody()['page'])) {
 $offset = ($page - 1) * $perPage;
 
 //Truy vấn lấy tất cả bản ghi
-$listAllpt = getRaw("SELECT * FROM pt  LIMIT $offset, $perPage");
-
+$listAllpt = getRaw("SELECT byc.id as idb ,u.id as id,u.fullname,u.email,u.phone,c.name,pt.fullname as pt,byc.active,c.price FROM bycource as byc JOIN pt on byc.pt_id=pt.id JOIN cource as c on c.id=byc.cource_id JOIN users as u ON u.id=byc.user_id;");
 //Xử lý query string tìm kiếm với phân trang
 $queryString = null;
 if (!empty($_SERVER['QUERY_STRING'])) {
@@ -42,18 +41,21 @@ if (!empty($_SERVER['QUERY_STRING'])) {
     $queryString = trim($queryString, '&');
     $queryString = '&' . $queryString;
 }
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $status = update('bycource', ['active' => "1"], "id='$id'");
+    if ($status) {
+        setFlashData("msg", "Đã xác nhận thanh toán");
+        setFlashData("msg_type","success");
+        redirect("?module=admin&action=price");
+    }
+}
 
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
 ?>
 <div class="content-wrapper">
     <div class="span12">
-        <br>
-        <a class="btn btn-large btn-primary text-white" href="?module=admin&action=add_pt"><i class="fa fa-plus"
-                aria-hidden="true"></i>
-            Thêm huấn
-            luyện viên</a>
-        <br>
         <div class='widget-box'>
             <?php
             getMsg($msg, $msgType);
@@ -67,12 +69,12 @@ $msgType = getFlashData('msg_type');
                             <th>Họ tên</th>
                             <th>Email</th>
                             <th>Số điện thoại</th>
-                            <th>Giới tính</th>
-                            <th>Địa chỉ</th>
+                            <th>Khóa tập</th>
+                            <th>Giá tiền</th>
+                            <th>Huấn luyện viên</th>
                             <th>Hành động</th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <?php
                         if (!empty($listAllpt)):
@@ -94,20 +96,22 @@ $msgType = getFlashData('msg_type');
                                         <div class='text-center'><?php echo $item['phone']; ?></div>
                                     </td>
                                     <td>
-                                        <div class='text-center'><?php echo $item['gender']; ?></div>
+                                        <div class='text-center'><?php echo $item['name']; ?></div>
                                     </td>
                                     <td>
-                                        <div class='text-center'><?php echo $item['address']; ?></div>
+                                        <div class='text-center'><?php echo $item['price']; ?></div>
                                     </td>
                                     <td>
-                                        <div class='text-center'><a
-                                                href="<?php echo _WEB_HOST_ROOT . '?module=admin&action=edit_pt&id=' . $item['id']; ?>"><i
-                                                    class='fas fa-edit' style='color:#28b779'></i> Edit
-                                                |</a href='edit_pt.php?id=" .<?php echo $item['id'] ?> .
-                                "'> <a
-                                                href="<?php echo _WEB_HOST_ROOT . '?module=admin&action=delete_pt&id=' . $item['id']; ?>"
-                                                style='color:#F66;'><i
-                                                    class='fas fa-trash'></i> Remove</a></div>
+                                        <div class='text-center'><?php echo $item['pt']; ?></div>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($item['active'] == "1") {
+                                            echo "<btn class='text-center btn btn-success'>Đã thanh toán</btn>";
+                                        } else {
+                                            echo "<btn><a class='text-center btn btn-danger' href='?module=admin&action=price&id=" . $item['idb'] . "'>Xác nhận thanh toán</a></btn>";
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                             <?php endforeach;
@@ -125,7 +129,7 @@ $msgType = getFlashData('msg_type');
                         <?php
                         if ($page > 1) {
                             $prevPage = $page - 1;
-                            echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=cource&action=list_cource' . $queryString . '&page=' . $prevPage . '">Trước</a></li>';
+                            echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=cource&action=price' . $queryString . '&page=' . $prevPage . '">Trước</a></li>';
                         }
                         ?>
                         <?php
@@ -139,7 +143,8 @@ $msgType = getFlashData('msg_type');
                         }
                         for ($index = $begin; $index <= $end; $index++) { ?>
                             <li class="page-item <?php echo ($index == $page) ? 'active' : ''; ?>">
-                                <a class="page-link" href="?module=admin&action=list_pt&page=<?php echo $index; ?>"><?php echo $index; ?></a>
+                                <a class="page-link"
+                                    href="?module=admin&action=price&page=<?php echo $index; ?>"><?php echo $index; ?></a>
                             </li>
 
                         <?php } ?>

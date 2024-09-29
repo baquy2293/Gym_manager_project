@@ -1,11 +1,11 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+use Gym_manager_project\includes\phpmailer\PHPMailer;
+use Gym_manager_project\includes\phpmailer\SMTP;
+use Gym_manager_project\includes\phpmailer\Exception;
 
-function layout($layoutName='header', $dir=''){
+function layout($layoutName='header', $dir='', $data = []){
 
     if (!empty($dir)){
         $dir = '/'.$dir;
@@ -29,7 +29,8 @@ function sendMail($to, $subject, $content)
         $mail->SMTPAuth = true;                                   //Enable SMTP authentication
         $mail->Username = 'op3477662@gmail.com';                     //SMTP username
         $mail->Password = 'nlbvppdrjiszxskx';                               //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  
+        // PHPMailer::ENCRYPTION_SMTPS          //Enable implicit TLS encryption
         $mail->Port = 465;                                    //TCP
 
         //Recipients

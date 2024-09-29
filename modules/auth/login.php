@@ -8,7 +8,7 @@ if (isPost()) {
         $email = $body['email'];
         $password = $body['password'];
         //Truy vấn lấy thông tin user theo email
-        $userQuery = firstRaw("SELECT id, password,admin FROM users WHERE email='$email' ");
+        $userQuery = firstRaw("SELECT id, password,admin,fullname FROM users WHERE email='$email' ");
         if (!empty($userQuery)) {
             $passwordHash = $userQuery['password'];
             $userId = $userQuery['id'];
@@ -27,6 +27,7 @@ if (isPost()) {
                     //Lưu loginToken vào session
                     setSession('loginToken', $tokenLogin);
                     setSession('admin', 1);
+                    setSession('fullname', $userQuery['fullname']);
                     //Chuyển hướng qua trang quản lý users
 
                     if ($userQuery['admin'] == "1") {

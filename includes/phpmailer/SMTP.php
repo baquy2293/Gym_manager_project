@@ -249,8 +249,8 @@ class SMTP
      * @param string $str   Debug string to output
      * @param int    $level The debug level of this message; see DEBUG_* constants
      *
-     * @see SMTP::$Debugoutput
-     * @see SMTP::$do_debug
+     * @see \users_manager\Sellingfastfood\includes\phpmailer\SMTP::$Debugoutput
+     * @see \users_manager\Sellingfastfood\includes\phpmailer\SMTP::$do_debug
      */
     protected function edebug($str, $level = 0)
     {

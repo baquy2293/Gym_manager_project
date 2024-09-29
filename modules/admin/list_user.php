@@ -2,8 +2,42 @@
 
 layout('header', 'admin');
 layout('sidebar', 'admin');
-$qry = "select * from users  where admin!='1' ";
+$qry = "select * from users  where admin != '1' ";
 $result = getRaw($qry);
+$allUserNum=getRows($qry);
+$perPage = _PER_PAGE; //Mỗi trang có 3 bản ghi
+
+//2. Tính số trang
+$maxPage = ceil($allUserNum/$perPage);
+
+//3. Xử lý số trang dựa vào phương thức GET
+if (!empty(getBody()['page'])){
+    $page = getBody()['page'];
+    if ($page<1 || $page>$maxPage){
+        $page = 1;
+    }
+}else{
+    $page = 1;
+}
+$offset = ($page-1)*$perPage;
+//4. Tính toán offset trong Limit dựa vào biến $page
+/*
+ * $page = 1 => offset = 0 = ($page-1)*$perPage = (1-1)*3 = 0
+ * $page = 2 => offset = 3 = ($page-1)*$perPage = (2-1)*3 = 3
+ * $page = 3 => offset = 6 = ($page-1)*$perPage = (3-1)*3 = 6
+ *
+ * */
+$queryString = null;
+if (!empty($_SERVER['QUERY_STRING'])){
+    $queryString = $_SERVER['QUERY_STRING'];
+    $queryString = str_replace('module=pt&action=list_pt', '', $queryString);
+    $queryString = str_replace('&page='.$page, '', $queryString);
+    $queryString = trim($queryString, '&');
+    $queryString = '&'.$queryString;
+}
+
+
+
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
 ?>
@@ -80,18 +114,34 @@ $msgType = getFlashData('msg_type');
                     </tbody>
                 </table>
                 <nav aria-label="...">
-                    <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
+                <ul class="pagination">
+                        <?php
+                        if ($page > 1) {
+                            $prevPage = $page - 1;
+                            echo '<li class="page-item"><a class="page-link" href="' . _WEB_HOST_ROOT . '?module=cource&action=list_user' . $queryString . '&page=' . $prevPage . '">Trước</a></li>';
+                        }
+                        ?>
+                        <?php
+                        $begin = $page - 2;
+                        if ($begin < 1) {
+                            $begin = 1;
+                        }
+                        $end = $page + 2;
+                        if ($end > $maxPage) {
+                            $end = $maxPage;
+                        }
+                        for ($index = $begin; $index <= $end; $index++) { ?>
+                            <li class="page-item <?php echo ($index == $page) ? 'active' : ''; ?>">
+                                <a class="page-link" href="?module=admin&action=list_user&page=<?php echo $index; ?>"><?php echo $index; ?></a>
+                            </li>
+
+                        <?php } ?>
+                        <?php
+                        if ($page < $maxPage) {
+                            $nextPage = $page + 1;
+                            echo '<li class="page-item"><a class="page-link" href="?page=' . $nextPage . '">Sau</a></li>';
+                        }
+                        ?>
                     </ul>
                 </nav>
             </div>
