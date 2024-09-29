@@ -4,34 +4,34 @@ echo getSession("admin");
 layout('header', 'admin');
 layout('sidebar', 'admin');
 ?>
-    <div class="content-wrapper">
-        <div class="card-block">
+    <div class="content-wrapper ">
+        <div class="card-block alert alert-info">
             <div class="row align-items-center b-b-default">
                 <div class="col-sm-6 b-r-default p-b-20 p-t-20">
                     <div class="row align-items-center text-center">
                         <div class="col-4 p-r-0">
                             <i class="fa fa-user text-c-purple f-24"></i>
                         </div>
-                        <div class="col-8 p-l-0">
+                        <div class="col-8 p-l-0 text-white">
                             <?php
                             echo '
-                       <h5>9</h5>
-                   <p class="text-muted m-b-0">Người Dùng</p>
+                       <h5>'.getRows('SELECT * from users').'</h5>
+                   <p class="text-muted m-b-0 text-white">Người Dùng</p>
                                                                             ';
                             ?>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-6 p-b-20 p-t-20">
-                    <div class="alert alert-success row align-items-center text-center">
+                    <div class=" row align-items-center text-center">
                         <div class="col-4 p-r-0">
                             <i class="fa fa-user text-c-green f-24"></i>
                         </div>
                         <div class="col-8 p-l-0">
                             <?php
                             echo ' 
-                             <h5>6</h5>
-                             <p class="text-muted m-b-0">Giảng viên</p>
+                             <h5>'.getRows("SELECT * FROM pt") .'</h5>
+                             <p class="text-muted m-b-0 text-white">Giảng viên</p>
                             ';
                             ?>
                         </div>
@@ -41,13 +41,13 @@ layout('sidebar', 'admin');
             <div class="row align-items-center">
                 <div class="col-sm-6 p-b-20 p-t-20 b-r-default">
                     <div class="row align-items-center text-center">
-                        <div class="col-4 p-r-0">
+                        <div class="col-4 p-r-0 fa fa-cart-plus">
                         </div>
                         <div class="col-8 p-l-0">
                             <?php
                             echo '
-                                                                                <h5>8</h5>
-                                                                                <p class="text-muted m-b-0">Khóa tập </p>
+                                                                                <h5>'.getRows("SELECT * FROM cource") .'</h5>
+                                                                                <p class="text-muted m-b-0 text-white" >Khóa tập </p>
                                                                             ';
                             ?>
                         </div>
@@ -56,14 +56,14 @@ layout('sidebar', 'admin');
                 <div class="col-sm-6 p-b-20 p-t-20">
                     <div class="row align-items-center text-center">
                         <div class="col-4 p-r-0">
-                            <i class="far fa-comments text-c-blue f-24"></i>
+                            <i class="fa fa-money text-c-blue f-24"></i>
                         </div>
                         <div class="col-8 p-l-0">
                             <?php
 
                             echo '
-                                                                                <h5>5</h5>
-                                                                                <p class="text-muted m-b-0">Bình Luận</p>
+                                                                                <h5>'.getRows("SELECT * FROM bycource ") .'</h5>
+                                                                                <p class="text-muted m-b-0 text-white">Đã Bán </p>
                                                                             ';
                             ?>
                         </div>
@@ -94,6 +94,7 @@ layout('sidebar', 'admin');
         $sqllesson = "SELECT COUNT(name) as sl, cource.name 
          FROM bycource 
          JOIN cource ON bycource.cource_id = cource.id 
+         WHERE bycource.active='1'
          GROUP BY cource.name";
 ;
         $datalesson = getRaw($sqllesson);
@@ -150,7 +151,7 @@ layout('sidebar', 'admin');
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Biểu đồ Doughnut - Tổng giá trị theo tháng'
+                            text: 'Biểu đồ Doughnut - Tổng khóa học đã được bán'
                         }
                     },
                     scales: {

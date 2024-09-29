@@ -67,6 +67,7 @@ if(isPost()){
                                       } 
                                             echo '
                                         </select>
+                                        <p class="text-success" >'.$row['description'].'</p>
                                       </div>
                                         <div class="buy_roduct">
                                         <input type="hidden" name="id_cource" value="'.$_GET['id'].'">
@@ -74,6 +75,7 @@ if(isPost()){
                                           <button type="submit" class="bnt_buyNow" onclick="Bạn có chắc chắn muốn mua khóa tập">Mua Ngay</button>
                                         </div>
                                     </div>
+                                    
                                     <!-- end content_product_item -->
                                   </div>
                                   <!-- end information_product -->

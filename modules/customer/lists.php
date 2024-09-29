@@ -40,7 +40,7 @@ layout('header', 'client', $data);
                       <div class="item-product-information">
                <a href="?module=customer&action=detail&id=' . $value["id"] . '" class="name-product">' . substr($value['name'], 0, 24) . '</a>
             <span class="discount"> ' . $value['time'] . 'T</span>
-              <span class="text-primary">' . $value['description'] . ' đ</span>
+              <span class="text-primary">' . $value['description'] . '</span>
               <br>
                         <span class="priceSaled-product">' . number_format($value['price']) . ' đ</span>
                       </div>
