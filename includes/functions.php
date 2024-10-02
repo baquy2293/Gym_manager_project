@@ -1,9 +1,9 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
 
-use Gym_manager_project\includes\phpmailer\PHPMailer;
-use Gym_manager_project\includes\phpmailer\SMTP;
-use Gym_manager_project\includes\phpmailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 function layout($layoutName='header', $dir='', $data = []){
 

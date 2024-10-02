@@ -21,8 +21,8 @@
 
 namespace PHPMailer\PHPMailer;
 
-use Gym_manager_project\includes\phpmailer\Exception;
-use Gym_manager_project\includes\phpmailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
 
 /**
  * PHPMailer - PHP email creation and transport class.

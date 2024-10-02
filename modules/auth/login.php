@@ -1,5 +1,8 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
+if(isset($_SESSION['admin'])){
+    redirect('?module=admin&action=lists');
+}
 layout("header_login");
 if (isPost()) {
     $body = getBody();

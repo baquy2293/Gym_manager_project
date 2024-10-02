@@ -41,11 +41,11 @@ if (!empty($_SERVER['QUERY_STRING'])){
 $msg = getFlashData('msg');
 $msgType = getFlashData('msg_type');
 ?>
-    <div class="content-wrapper">
+<div class="content-wrapper">
     <div class="span12">
         <br>
         <a class="btn btn-large btn-primary text-white" href="?module=admin&action=add_user"><i class="fa fa-plus"
-                                                                                                aria-hidden="true"></i>
+                aria-hidden="true"></i>
             Thêm người dùng</a>
         <br>
         <div class='widget-box'>
@@ -55,66 +55,69 @@ $msgType = getFlashData('msg_type');
             <div class='widget-content nopadding'>
                 <table class='table table-bordered table-hover'>
                     <thead>
-                    <tr style="text-align: center">
-                        <th class="col-1">STT</th>
-                        <th class="col-2">Họ tên</th>
-                        <th class="col-2">Email</th>
-                        <th class="col-2">Số điện thoại</th>
-                        <th class="col-1">Giới tính</th>
-                        <th class="col-2">Địa chỉ</th>
-                        <th class="col-2">Hành động</th>
-                    </tr>
+                        <tr style="text-align: center">
+                            <th class="col-1">STT</th>
+                            <th class="col-2">Họ tên</th>
+                            <th class="col-2">Email</th>
+                            <th class="col-2">Số điện thoại</th>
+                            <th class="col-1">Giới tính</th>
+                            <th class="col-2">Địa chỉ</th>
+                            <th class="col-2">Hành động</th>
+                        </tr>
                     </thead>
                     <?php
                     if (!empty($result)):
                     $count = 0; //Hiển thị số thứ tự
-                    foreach ($result
-
-                    as $item):
+                    foreach ($result as $item):
                     $count++;
                     ?>
                     <tbody>
-                    <tr class=''>
-                        <td>
-                            <div class='text-center'><?php echo $count; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><?php echo $item['fullname']; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><?php echo $item['email']; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><?php echo $item['phone']; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><?php echo $item['gender']; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><?php echo $item['address']; ?></div>
-                        </td>
-                        <td>
-                            <div class='text-center'><a
+                        <tr class=''>
+                            <td>
+                                <div class='text-center'><?php echo $count; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><?php echo $item['fullname']; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><?php echo $item['email']; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><?php echo $item['phone']; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><?php echo $item['gender']; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><?php echo $item['address']; ?></div>
+                            </td>
+                            <td>
+                                <div class='text-center'><a <?php if ($item['activeToken'] == NULL   ) {  ?>
                                         href="<?php echo _WEB_HOST_ROOT . '?module=admin&action=edit_user&id=' . $item['id']; ?>"><i
                                             class='fas fa-edit' style='color:#28b779'></i> Edit
-                                    |</a href='edit_pt.php?id=" .<?php echo $item['id'] ?> .
-                                "'> <a
-                                        href="<?php echo _WEB_HOST_ROOT . '?module=admin&action=delete_user&id=' . $item['id']; ?>"
-                                        style='color:#F66;'><i
-                                            class='fas fa-trash'></i> Remove</a></div>
-                        </td>
-                    </tr>
-                    <?php endforeach; else: ?>
+                                        |</a href='edit_pt.php?id=" .<?php echo $item['id'] ?> .
+                                "'> <a href="<?php echo _WEB_HOST_ROOT . '?module=admin&action=delete_user&id=' . $item['id']; ?>"
+                                        style='color:#F66;'><i class='fas fa-trash'></i> Remove</a></div>
+                                        <?php }else{?>
+                                            <a href="<?php echo _WEB_HOST_ROOT . '?module=auth&action=active&token=' . $item['activeToken']; ?>"
+                                            style='color:#F66;'><i class="fas fa-clipboard-check"></i></i> Xác nhận</a>
+
+                                            <?php }?>
+
+
+                            </td>
+                        </tr>
+                        <?php endforeach; else: ?>
                         <tr>
                             <td colspan="7">
                                 <div class="alert alert-danger text-center">Không có người dùng</div>
                             </td>
                         </tr>
-                    <?php endif; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
                 <nav aria-label="...">
-                <ul class="pagination">
+                    <ul class="pagination">
                         <?php
                         if ($page > 1) {
                             $prevPage = $page - 1;
@@ -131,9 +134,10 @@ $msgType = getFlashData('msg_type');
                             $end = $maxPage;
                         }
                         for ($index = $begin; $index <= $end; $index++) { ?>
-                            <li class="page-item <?php echo ($index == $page) ? 'active' : ''; ?>">
-                                <a class="page-link" href="?module=admin&action=list_user&page=<?php echo $index; ?>"><?php echo $index; ?></a>
-                            </li>
+                        <li class="page-item <?php echo ($index == $page) ? 'active' : ''; ?>">
+                            <a class="page-link"
+                                href="?module=admin&action=list_user&page=<?php echo $index; ?>"><?php echo $index; ?></a>
+                        </li>
 
                         <?php } ?>
                         <?php
@@ -147,5 +151,5 @@ $msgType = getFlashData('msg_type');
             </div>
         </div>
     </div>
-<?php
+    <?php
 layout("footer", "admin"); ?>
