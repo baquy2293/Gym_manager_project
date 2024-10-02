@@ -1,8 +1,8 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
-layout("header_login");
+layout("header_login");$token = sha1(time());
 
-if (isPost()) {
+if (isPost()&& $_SESSION['token'] == $_POST['token']) {
     $body = getBody();
     if (!empty($body['email'])) {
         $email = $body['email'];
@@ -62,35 +62,14 @@ $msgType = getFlashData('msg_type');
             </div>
         </div>
         <div class="form-actions center">
+        <input type="hidden" name='token' value="<?php echo $token; ?>">
+        <?PHP $_SESSION['token'] = $token ?>
             <button type="submit" class="btn btn-block btn-large btn-info" title="Log In" name="login"
                     value="Admin Login">Xác nhận
             </button>
         </div>
     </form>
-    <!--    --><?php
-    //    if (isset($_POST['login'])) {
-    //        $username = mysqli_real_escape_string($conn, $_POST['user']);
-    //        $password = mysqli_real_escape_string($conn, $_POST['pass']);
-    //
-    //        $password = md5($password);
-    //
-    //        $query = mysqli_query($conn, "SELECT * FROM admin WHERE  password='$password' and username='$username'");
-    //        $row = mysqli_fetch_array($query);
-    //        $num_row = mysqli_num_rows($query);
-    //
-    //        if ($num_row > 0) {
-    //            $_SESSION['user_id'] = $row['user_id'];
-    //            header('location:admin/index.php');
-    //        } else {
-    //            echo "<div class='alert alert-danger alert-dismissible' role='alert'>
-    //                                Invalid Username and Password
-    //                                <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-    //                                    <span aria-hidden='true'>&times;</span>
-    //                                </button>
-    //                                </div>";
-    //        }
-    //    }
-    //    ?>
+
     <div class="pull-left">
         <a href="?module=auth&action=login">Đăng nhập</a>
     </div>

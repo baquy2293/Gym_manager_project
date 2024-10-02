@@ -1,8 +1,9 @@
 <?php
 if (!defined('_INCODE')) die('Access Deined...');
+$token = sha1(time());
 layout("header_login");
 
-if (isPost()) {
+if (isPost() && $_SESSION['token'] == $_POST['token'] ) {
     $body = getBody();
     $error = [];
     if (empty(trim($body['fullname']))) {
@@ -193,6 +194,8 @@ $old = getFlashData('old');
         </div>
 
         <div class="form-actions center">
+        <input type="hidden" name='token' value="<?php echo $token; ?>">
+        <?PHP $_SESSION['token'] = $token ?>
             <button type="submit" class="btn btn-block btn-large btn-info"
                     value="Admin Login">Đăng kí
             </button>
